@@ -7,46 +7,56 @@
     <style>
         :root { --primary: #2c3e50; --accent: #3498db; --bg: #f4f7f9; --card: #ffffff; --border: #cbd5e1; --success: #27ae60; --orange: #e67e22; --dark: #1e293b; --danger: #e74c3c; }
         body { font-family: "Helvetica Neue", Arial, sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #333; line-height: 1.5; }
-        .app-container { max-width: 850px; margin: auto; position: relative; }
+        .app-container { max-width: 850px; margin: auto; position: relative; padding-bottom: 60px; }
         
-        .btn-settings { position: fixed; top: 10px; right: 10px; z-index: 100; background: var(--dark); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .title-selector-container { text-align: center; margin-bottom: 20px; border-bottom: 3px double var(--primary); padding-bottom: 10px; }
+        .title-select { font-size: 1.6rem; font-weight: bold; color: var(--primary); border: none; background: transparent; text-align: center; cursor: pointer; letter-spacing: 0.3em; width: 100%; outline: none; appearance: none; -webkit-appearance: none; }
+        
+        .btn-settings { position: fixed; top: 10px; right: 10px; z-index: 100; background: var(--dark); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto; }
         .modal-content { background: white; margin: 5% auto; padding: 20px; width: 90%; max-width: 500px; border-radius: 10px; position: relative; }
         
         #photo-list { display: flex; flex-wrap: wrap; gap: 10px; padding: 15px; background: #fff; border: 1px solid #cbd5e1; border-top: none; }
         .photo-item { position: relative; width: 80px; height: 80px; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; cursor: pointer; }
         .photo-item img { width: 100%; height: 100%; object-fit: cover; }
-        .btn-del-img { position: absolute; top: 0; right: 0; background: rgba(231, 76, 60, 0.8); color: white; border: none; font-size: 12px; padding: 2px 5px; cursor: pointer; }
+        .btn-del-img { position: absolute; top: 0; right: 0; background: rgba(231, 76, 60, 0.9); color: white; border: none; font-size: 14px; padding: 4px 8px; cursor: pointer; }
         #full-photo-view { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; cursor:zoom-out; align-items:center; justify-content:center; }
         #full-photo-view img { max-width: 95%; max-height: 95%; }
 
         .card { background: var(--card); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 25px; border: 1px solid var(--border); margin-top: 10px; }
-        h1 { text-align: center; font-size: 1.6rem; margin: 0 0 20px 0; color: var(--primary); letter-spacing: 0.3em; border-bottom: 3px double var(--primary); padding-bottom: 10px; }
         .section-title { background: #475569; color: white; padding: 8px 12px; font-weight: bold; margin-top: 20px; font-size: 0.95rem; border-radius: 4px 4px 0 0; display: flex; justify-content: space-between; align-items: center; }
         .content-box { border: 1px solid #475569; border-radius: 0 0 4px 4px; overflow: hidden; background: #fff; margin-bottom: 10px; }
         .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 15px; }
         .field { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.85rem; color: var(--primary); margin-bottom: 4px; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        input, select, textarea { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; box-sizing: border-box; font-size: 16px; }
         textarea { border: none; min-height: 100px; }
-        .vital-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; }
+        textarea::placeholder { color: #94a3b8; font-size: 14px; }
         
-        #impact_desc_box { background: #fffde7; padding: 10px; border: 1px solid #fbc02d; border-radius: 6px; margin-top: 10px; font-size: 13px; min-height: 40px; }
-        .impact-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: bold; color: white; font-size: 12px; margin-bottom: 5px; }
+        /* 修正箇所：呼吸数を追加するため5列に調整 */
+        .vital-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 12px; background: #f8fafc; border-bottom: 1px solid #eee; }
+        
+        #impact_desc_box { background: #fffde7; padding: 10px; border: 1px solid #fbc02d; border-radius: 6px; margin-top: 10px; font-size: 14px; min-height: 40px; }
+        .impact-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: bold; color: white; font-size: 13px; margin-bottom: 5px; }
 
-        .btn-pick { background: #e2e8f0; border: none; border-radius: 4px; padding: 2px 8px; font-size: 11px; cursor: pointer; color: #475569; }
+        .btn-pick { background: #e2e8f0; border: none; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; color: #1e293b; font-weight: bold; }
         .analysis-grid { display: flex; gap: 10px; overflow-x: auto; padding: 15px; background: #fff; border: 1px solid #cbd5e1; border-top: none; }
         .m-box { flex: 1; min-width: 130px; }
-        .m-sel { height: 110px !important; font-size: 12px; }
-        .btn-close-sel { width: 100%; padding: 5px; background: #64748b; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer; margin-top: 4px; }
-        .btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; display: flex; align-items: center; gap: 8px; }
+        .m-sel { height: 110px !important; font-size: 13px; }
+        .btn-close-sel { width: 100%; padding: 8px; background: #64748b; color: white; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; margin-top: 4px; font-weight: bold; }
+        
+        .btn { padding: 16px 24px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.1s; }
+        .btn:active { transform: scale(0.98); }
+        .action-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
 
-        @media print { .input-only, .btn-settings, .modal, .btn-pick, .btn-close-sel, .record-gen-section, .btn-del-img { display: none !important; } }
+        footer { text-align: center; padding: 30px 0; color: #64748b; font-size: 14px; font-weight: 500; }
+
+        @media print { .input-only, .btn-settings, .modal, .btn-pick, .btn-close-sel, .record-gen-section, .btn-del-img { display: none !important; } .card { box-shadow: none; border: 1px solid #000; } }
     </style>
 </head>
 <body>
 
-<button class="btn-settings input-only" onclick="toggleModal('settingsModal', true)">⚙️</button>
+<button class="btn-settings input-only" onclick="toggleModal('settingsModal', true)" aria-label="設定">⚙️</button>
 <div id="full-photo-view" onclick="this.style.display='none'"><img id="full-img" src=""></div>
 
 <div id="settingsModal" class="modal input-only">
@@ -54,8 +64,8 @@
         <h3 style="margin-top:0;">⚙️ 定型文マスター登録</h3>
         <div id="master-editor" style="max-height: 60vh; overflow-y: auto; padding-right:5px;"></div>
         <div style="margin-top:20px; display:flex; gap:10px;">
-            <button class="btn" style="background:var(--success); flex:1;" onclick="saveMaster()">設定を保存</button>
-            <button class="btn" style="background:#ccc; color:#333; flex:1;" onclick="toggleModal('settingsModal', false)">閉じる</button>
+            <button class="btn" style="background:var(--success); flex:1; font-size:0.9rem;" onclick="saveMaster()">設定を保存</button>
+            <button class="btn" style="background:#eee; color:#333; flex:1; font-size:0.9rem;" onclick="toggleModal('settingsModal', false)">閉じる</button>
         </div>
     </div>
 </div>
@@ -63,22 +73,25 @@
 <div id="pickerModal" class="modal input-only">
     <div class="modal-content" style="max-width:350px;">
         <h4 id="picker-title" style="margin-top:0;">選択</h4>
-        <div id="picker-list" style="display:grid; gap:8px;"></div>
-        <button class="btn" style="background:#666; width:100%; margin-top:15px; justify-content:center;" onclick="toggleModal('pickerModal', false)">キャンセル</button>
+        <div id="picker-list" style="display:grid; gap:10px;"></div>
+        <button class="btn" style="background:#666; width:100%; margin-top:20px; font-size:0.9rem;" onclick="toggleModal('pickerModal', false)">キャンセル</button>
     </div>
 </div>
 
 <div class="app-container">
     <div class="card">
-        <h1 id="main_title">事 故 報 告 書</h1>
+        <div class="title-selector-container">
+            <select id="main_title_select" class="title-select" onchange="updateTitleUI(); autoSave();">
+                <option value="事 故 報 告 書">事 故 報 告 書</option>
+                <option value="ヒヤリハット報告">ヒヤリハット報告</option>
+            </select>
+        </div>
 
         <div class="input-grid">
             <div class="field"><label>利用者名</label><input type="text" id="user_name" oninput="autoSave()"></div>
             <div class="field">
                 <label>区分</label>
-                <select id="category" onchange="updateCategoryUI(); autoSave();">
-                    <option value="転倒">転倒・転落</option><option value="薬">誤薬</option><option value="嚥下">誤嚥</option><option value="皮膚">皮膚損傷</option><option value="その他">その他</option>
-                </select>
+                <select id="category" onchange="autoSave();"></select>
             </div>
             <div class="field"><label>報告者</label><input type="text" id="reporter" oninput="autoSave()"></div>
             <div class="field"><label>発生場所</label><input type="text" id="location" oninput="autoSave()"></div>
@@ -103,7 +116,7 @@
 
         <div id="impact_desc_box" class="input-only">
             <div id="impact_type_badge"></div>
-            <div id="impact_text" style="color:#555;">レベルを選択すると基準が表示されます</div>
+            <div id="impact_text" style="color:#1e293b;">レベルを選択すると基準が表示されます</div>
         </div>
 
         <div class="section-title">バイタル・ケガの状態</div>
@@ -111,13 +124,14 @@
             <div class="field"><label>体温</label><input type="number" step="0.1" id="v_temp" oninput="autoSave()"></div>
             <div class="field"><label>血圧</label><input type="text" id="v_bp" oninput="autoSave()"></div>
             <div class="field"><label>脈拍</label><input type="number" id="v_hr" oninput="autoSave()"></div>
+            <div class="field"><label>呼吸数</label><input type="number" id="v_rr" oninput="autoSave()"></div>
             <div class="field"><label>SpO2</label><input type="number" id="v_spo2" oninput="autoSave()"></div>
         </div>
         <div class="content-box" style="border-top:none; margin-bottom:0;"><input type="text" id="injury" style="border:none;" placeholder="ケガの状態を入力" oninput="autoSave()"></div>
 
         <div class="section-title">
             <span>現場・ケガの写真</span>
-            <label class="btn-pick input-only" style="background:var(--accent); color:white; padding:4px 10px;">追加 <input type="file" id="photo-input" accept="image/*" multiple style="display:none;" onchange="handlePhotos(event)"></label>
+            <label class="btn-pick input-only" style="background:var(--accent); color:white; padding:6px 12px;">追加 <input type="file" id="photo-input" accept="image/*" multiple style="display:none;" onchange="handlePhotos(event)"></label>
         </div>
         <div id="photo-list" class="content-box"></div>
 
@@ -125,7 +139,9 @@
             <span>事故発生状況</span>
             <button class="btn-pick input-only" onclick="openPicker('situation')">📋 定型文</button>
         </div>
-        <div class="content-box"><textarea id="situation" oninput="autoResize(this); autoSave();"></textarea></div>
+        <div class="content-box">
+            <textarea id="situation" placeholder="何をしていたか、どのような危険があったか？" oninput="autoResize(this); autoSave();"></textarea>
+        </div>
 
         <div class="section-title">原因分析</div>
         <div class="analysis-grid input-only">
@@ -143,13 +159,13 @@
         </div>
         <div class="content-box"><textarea id="prevent" oninput="autoResize(this); autoSave();"></textarea></div>
 
-        <div class="record-gen-section input-only" style="margin-top:30px; border:2px solid var(--orange); padding:15px; background:#fffaf5; border-radius:8px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;">
-                <span style="font-weight:bold; color:var(--orange);">📝 記録転送用テキスト</span>
-                <button class="btn" style="background:#34495e; padding:5px 12px; font-size:12px;" onclick="copyRecord()">コピー</button>
+        <div class="record-gen-section input-only" style="margin-top:30px; border:2px solid var(--orange); padding:20px; background:#fffaf5; border-radius:12px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px; align-items:center;">
+                <span style="font-weight:bold; color:var(--orange); font-size:1.1rem;">📝 記録転送用テキスト</span>
+                <button class="btn-pick" style="background:#34495e; color:white; padding:8px 15px;" onclick="copyRecord()">コピー</button>
             </div>
-            <div class="content-box"><textarea id="generated_record" readonly style="min-height:100px;"></textarea></div>
-            <button class="btn" style="background:var(--orange); width:100%; margin-top:10px; justify-content:center;" onclick="generateRecord()">✨ 記録文を自動生成</button>
+            <div class="content-box"><textarea id="generated_record" readonly style="min-height:100px; background:#fefefe;"></textarea></div>
+            <button class="btn" style="background:var(--orange); width:100%; margin-top:15px;" onclick="generateRecord()">✨ 記録文を自動生成</button>
         </div>
 
         <div class="action-bar input-only">
@@ -157,6 +173,10 @@
             <button class="btn" style="background:var(--success);" onclick="window.print()">🖨️ 印刷 / PDF</button>
         </div>
     </div>
+    
+    <footer>
+        ©️ONMUSUBI 2026
+    </footer>
 </div>
 
 <script>
@@ -170,60 +190,28 @@ const impactData = {
     "5": { type: "アクシデント", degree: "高度", desc: "死亡（現疾患の自然経過によるものを除く）。" }
 };
 
-const labelMap = { situation: "状況", prevent: "予防策", m_user: "利用者", m_staff: "職員", m_mac: "環境", m_met: "手順", m_mng: "管理" };
+const labelMap = { category: "区分", situation: "状況", prevent: "予防策", m_user: "利用者", m_staff: "職員", m_mac: "環境", m_met: "手順", m_mng: "管理" };
 
 let masterData = { 
+    category: ["転倒", "転落", "薬", "嚥下", "皮膚", "その他"],
     situation: ["歩行中に転倒。","配薬ミス。"], 
     prevent: ["見守り強化。"], 
-    m_user: [
-        "疾患（病気）",
-        "体調の変化",
-        "ADL（日常生活動作）",
-        "身体機能面の問題",
-        "転倒しやすい",
-        "誤嚥しやすい（嚥下機能）",
-        "排便・排尿（尿意・便意など）",
-        "薬の服用状態",
-        "栄養状態",
-        "精神（心の）状況",
-        "認知機能面",
-        "対人関係や悩み",
-        "なにかエピソードがあったか？",
-        "ご利用者の生活リズム（昼夜逆転）",
-        "望むこと、嫌なこと"
-    ], 
-    m_staff: [
-        "視力、聴力", 
-        "体調の変化", 
-        "睡眠不足", 
-        "疲労感", 
-        "精神（心の）状況", 
-        "対人関係や悩み・ストレス", 
-        "急いでいた", 
-        "焦っていた", 
-        "集中できなかった", 
-        "他の利用者対応中だった", 
-        "技術不足(介護技術など)", 
-        "知識不足", 
-        "確認不足", 
-        "連絡不足", 
-        "慣れ"
-    ], 
-    // 環境原因分析のデフォルト項目を更新
-    m_mac: [
-        "床濡れ・滑りやすさ",
-        "危険物の有無",
-        "モノの置き場所、置き方",
-        "機器の配置・機能・適合性",
-        "センサーの不備",
-        "適切な物を使用しているか",
-        "道具の使用方法の不備",
-        "その他【】"
-    ], 
+    m_user: ["疾患（病気）","体調の変化","ADL（日常生活動作）","身体機能面の問題","転倒しやすい","誤嚥しやすい（嚥下機能）","排便・排尿（尿意・便意など）","薬の服用状態","栄養状態","精神（心の）状況","認知機能面","対人関係や悩み","なにかエピソードがあったか？","ご利用者の生活リズム（昼夜逆転）","望むこと、嫌なこと"], 
+    m_staff: ["視力、聴力","体調の変化","睡眠不足","疲労感","精神（心の）状況","対人関係や悩み・ストレス","急いでいた","焦っていた","集中できなかった","他の利用者対応中だった","技術不足(介護技術など)","知識不足","確認不足","連絡不足","慣れ"], 
+    m_mac: ["床濡れ・滑りやすさ","危険物の有無","モノの置き場所、置き方","機器の配置・機能・適合性","センサーの不備","適切な物を使用しているか","道具の使用方法の不備","その他【】"], 
     m_met: ["手順ミス"], 
     m_mng: ["人員配置"] 
 };
 let photoList = [];
+
+function updateTitleUI() {
+    const titleVal = document.getElementById('main_title_select').value;
+    const impactSelector = document.getElementById('impact_level');
+    if (titleVal === "ヒヤリハット報告") {
+        impactSelector.value = "0";
+        updateImpactUI();
+    }
+}
 
 function updateImpactUI() {
     const val = document.getElementById('impact_level').value;
@@ -272,13 +260,32 @@ function renderMasterEditor() {
         const div = document.createElement('div'); div.style.marginBottom = "15px";
         div.innerHTML = `<h4 style="margin:0 0 5px 0; font-size:14px; color:var(--accent);">${labelMap[key]}</h4>`;
         masterData[key].forEach((val, idx) => {
-            div.innerHTML += `<div style="display:flex; gap:2px; margin-bottom:4px;"><input type="text" value="${val}" onchange="masterData['${key}'][${idx}]=this.value" style="padding:5px; font-size:12px;"><button onclick="masterData['${key}'].splice(${idx},1);renderMasterEditor()">×</button></div>`;
+            div.innerHTML += `<div style="display:flex; gap:2px; margin-bottom:4px;"><input type="text" value="${val}" onchange="masterData['${key}'][${idx}]=this.value" style="padding:5px; font-size:13px;"><button onclick="masterData['${key}'].splice(${idx},1);renderMasterEditor()">×</button></div>`;
         });
-        div.innerHTML += `<button onclick="masterData['${key}'].push('');renderMasterEditor()" style="font-size:11px; cursor:pointer;">+ 追加</button>`;
+        div.innerHTML += `<button onclick="masterData['${key}'].push('');renderMasterEditor()" style="font-size:12px; cursor:pointer;">+ 追加</button>`;
         container.appendChild(div);
     });
 }
-function saveMaster() { localStorage.setItem('master_v11', JSON.stringify(masterData)); updateSelectors(); toggleModal('settingsModal', false); }
+function saveMaster() { 
+    localStorage.setItem('master_v11', JSON.stringify(masterData)); 
+    updateSelectors(); 
+    updateCategorySelector();
+    toggleModal('settingsModal', false); 
+}
+
+function updateCategorySelector() {
+    const sel = document.getElementById('category');
+    const currentVal = sel.value;
+    sel.innerHTML = "";
+    masterData.category.forEach(v => {
+        if(!v) return;
+        const o = document.createElement('option');
+        o.value = v; o.text = v;
+        if(v === currentVal) o.selected = true;
+        sel.appendChild(o);
+    });
+}
+
 function updateSelectors() {
     ['m_user', 'm_staff', 'm_mac', 'm_met', 'm_mng'].forEach(id => {
         const sel = document.getElementById(id); const saved = Array.from(sel.selectedOptions).map(o => o.value);
@@ -292,7 +299,7 @@ function openPicker(targetId) {
     list.innerHTML = "";
     masterData[targetId].forEach(text => {
         if(!text) return;
-        const b = document.createElement('button'); b.className = "btn"; b.style = "background:#f0f4f8; color:#333; font-size:12px; text-align:left; font-weight:normal; border:1px solid #ddd;";
+        const b = document.createElement('button'); b.className = "btn"; b.style = "background:#f0f4f8; color:#333; font-size:14px; text-align:left; font-weight:normal; border:2px solid #ddd; padding:15px;";
         b.innerText = text;
         b.onclick = () => { const el = document.getElementById(targetId); el.value += (el.value ? "\n" : "") + text; autoResize(el); toggleModal('pickerModal', false); autoSave(); };
         list.appendChild(b);
@@ -318,15 +325,17 @@ function generateRecord() {
     const vt = document.getElementById('v_temp').value || "-";
     const vb = document.getElementById('v_bp').value || "-";
     const vh = document.getElementById('v_hr').value || "-";
+    const vr = document.getElementById('v_rr').value || "-"; // 追加
     const vs = document.getElementById('v_spo2').value || "-";
-    const vitalLine = `バイタル：T:${vt} BP:${vb} P:${vh} SpO2:${vs}%`;
+    
+    // 記録文にRを追加
+    const vitalLine = `バイタル：T:${vt} BP:${vb} P:${vh} R:${vr} SpO2:${vs}%`;
     const text = `【報告記録：${name}様】\n発生日時：${dateStr}\n場所：${loc}\n${impactText}\n${vitalLine}\nケガの状態：${inj}\n\n＜状況詳細＞\n${sit}`;
     document.getElementById('generated_record').value = text;
     autoResize(document.getElementById('generated_record'));
 }
 
 function autoResize(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
-function updateCategoryUI() { }
 function closeSel(id) { document.getElementById(id).blur(); sync5M(); }
 function copyRecord() { navigator.clipboard.writeText(document.getElementById('generated_record').value).then(() => alert("コピーしました")); }
 
@@ -335,7 +344,9 @@ function autoSave() {
     d.photos = photoList; localStorage.setItem('save_v11', JSON.stringify(d));
 }
 function loadData() {
-    const m = localStorage.getItem('master_v11'); if(m) masterData = JSON.parse(m); updateSelectors();
+    const m = localStorage.getItem('master_v11'); if(m) masterData = JSON.parse(m); 
+    updateSelectors();
+    updateCategorySelector();
     const s = localStorage.getItem('save_v11');
     if(s) {
         const d = JSON.parse(s);
