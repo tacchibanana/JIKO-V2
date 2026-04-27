@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>報告アプリ_Tacchibanana_v14</title>
-    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD9klEQVR4nO2bXWgcVRSAn7mTSZpOn9m0SdM0SdvUptFq09S2SkFrLUK1YitUKv6p+EerIkh9IKKiVAsV9IeoKAgVf6iIIn6gCPpD/SNoS0VbS9N0Sdt0m06TztzJH3cmmUwyc++duePMPfByYDKZuffuXmefs88+95wjY8SIESNGjBgxYnwXyAAn8AtwBfgl68Z0EAb8WUAALgXWA+uABmABMAsYBQpABrgN6AH6gS7gInAncC/QDcwA46SLoUfIDuA54AXgZeAlYDXQCXh97C0HMoAZYAhYCHQCDwNbgK3AFuA+YAnQCmQAOekW0At0AqfIZMBu4FngHeAtYAsw72FPHpAHLgaKgDPAE8AnpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgX8C/WDeGEX8D/wN2q6S746F9LAAAAABJRU5ErkJggg==">
-    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD9klEQVR4nO2bXWgcVRSAn7mTSZpOn9m0SdM0SdvUptFq09S2SkFrLUK1YitUKv6p+EerIkh9IKKiVAsV9IeoKAgVf6iIIn6gCPpD/SNoS0VbS9N0Sdt0m06TztzJH3cmmUwyc++duePMPfByYDKZuffuXmefs88+95wjY8SIESNGjBgxYnwXyAAn8AtwBfgl68Z0EAb8WUAALgXWA+uABmABMAsYBQpABrgN6AH6gS7gInAncC/QDcwA46SLoUfIDuA54AXgZeAlYDXQCXh97C0HMoAZYAhYCHQCDwNbgK3AFuA+YAnQCmQAOekW0At0AqfIZMBu4FngHeAtYAsw72FPHpAHLgaKgDPAE8AnpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgX8C/WDeGEX8D/wN2q6S746F9LAAAAABJRU5ErkJggg==">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="事故報告">
+    <title>報告アプリ_Tacchibanana_v18_A4</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD9klEQVR4nO2bXUhTYRjHf+ec09m0uS9m09S0SdPUNJvS6MKuSuhS0E0XfS90E0S9CyLoIuiioIsi6KKLoIuiLpIu6iK6CLoo6SLoYpum083pZpuz856Lp80583S2OXu2OfuBB87Z2f953v953/f9n/fDCAQCgUAgEAgEAoFAILArIAccAn4CH4Gv7LPRQRqAbisggN8CrAXagXVAH7ALmAtMA/pAAZgBbgN6gH6gG7gA3A08BDQD08As6RHoErIDeB14DngbeBlYDXQDLo99ykAGMAMMASuBbuAjYBvQDewA7gfWAB1ADpCRbgG9QCdwiswC9gEvA++RzoD9wHPAXmAHsC1v7/L+rCPTAfuAV4GvgG+AncCsvL0rgCzwEDAHPAV8RToD9gPPAXuBHcC2vL3L+7OOTAfsA14FfgK+AbYCcys+3u6M8C3iP8it0Y0/A38D9glfA+Wk9XhAAAAAElFTkSuQmCC">
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD9klEQVR4nO2bXUhTYRjHf+ec09m0uS9m09S0SdPUNJvS6MKuSuhS0E0XfS90E0S9CyLoIuiioIsi6KKLoIuiLpIu6iK6CLoo6SLoYpum083pZpuz856Lp80583S2OXu2OfuBB87Z2f953v953/f9n/fDCAQCgUAgEAgEAoFAILArIAccAn4CH4Gv7LPRQRqAbisggN8CrAXagXVAH7ALmAtMA/pAAZgBbgN6gH6gG7gA3A08BDQD08As6RHoErIDeB14DngbeBlYDXQDLo99ykAGMAMMASuBbuAjYBvQDewA7gfWAB1ADpCRbgG9QCdwiswC9gEvA++RzoD9wHPAXmAHsC1v7/L+rCPTAfuAV4GvgG+AncCsvL0rgCzwEDAHPAV8RToD9gPPAXuBHcC2vL3L+7OOTAfsA14FfgK+AbYCcys+3u6M8C3iP8it0Y0/A38D9glfA+Wk9XhAAAAAElFTkSuQmCC">
 
     <style>
-        :root { --primary: #2c3e50; --accent: #3498db; --bg: #f4f7f9; --card: #ffffff; --border: #cbd5e1; --success: #27ae60; --orange: #e67e22; --dark: #1e293b; --danger: #e74c3c; --info: #3498db; }
+        :root { --primary: #2c3e50; --accent: #27ae60; --bg: #f4f7f9; --card: #ffffff; --border: #cbd5e1; --success: #27ae60; --orange: #e67e22; --dark: #1e293b; --danger: #e74c3c; --info: #3498db; }
         body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #333; line-height: 1.3; }
         .app-container { max-width: 850px; margin: auto; position: relative; }
         
         .title-selector-container { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px; border-bottom: 3px double var(--primary); padding-bottom: 5px; }
-        /* ロゴ画像も差し替え */
-        .app-icon-img { width: 36px; height: 36px; object-fit: contain; border-radius: 6px; }
+        .app-icon-img { width: 42px; height: 42px; object-fit: contain; }
         .title-select { font-size: 1.4rem; font-weight: bold; color: var(--primary); border: none; background: transparent; text-align: center; cursor: pointer; letter-spacing: 0.2em; flex-grow: 1; outline: none; appearance: none; -webkit-appearance: none; }
         
         .btn-settings { position: fixed; top: 10px; right: 10px; z-index: 100; background: var(--dark); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
@@ -60,17 +55,14 @@
             body { background: white; padding: 0; font-size: 11pt; }
             .app-container { max-width: 100%; width: 100%; }
             .input-only, .btn-settings, .modal, .btn-pick, .btn-close-sel, .record-gen-section, .btn-del-img, .analysis-grid, footer { display: none !important; }
-            
             .card { box-shadow: none; border: none; padding: 0; }
             input, select, textarea { border: none; padding: 4px 0; font-size: 11pt; background: transparent !important; appearance: none; -webkit-appearance: none; overflow: hidden; }
             textarea { height: auto !important; min-height: 1.2em; }
-            
             .content-box { border: 1px solid #475569; margin-bottom: 10px; page-break-inside: avoid; }
             .section-title { background: #f0f0f0 !important; color: #000 !important; border: 1px solid #475569; border-bottom: none; -webkit-print-color-adjust: exact; }
             .vital-grid { background: white; padding: 4px; border: 1px solid #475569; border-top: none; margin-bottom: 5px; }
             .input-grid { gap: 10px; margin-bottom: 10px; border: 1px solid #eee; padding: 5px; border-radius: 4px; }
             .title-selector-container { margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-            
             #photo-list { border: 1px solid #475569; border-top: none; }
             #photo-list:empty { display: none; }
             .photo-item { width: 180px; height: 180px; }
@@ -104,7 +96,7 @@
 <div class="app-container">
     <div class="card">
         <div class="title-selector-container">
-            <img class="app-icon-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD9klEQVR4nO2bXWgcVRSAn7mTSZpOn9m0SdM0SdvUptFq09S2SkFrLUK1YitUKv6p+EerIkh9IKKiVAsV9IeoKAgVf6iIIn6gCPpD/SNoS0VbS9N0Sdt0m06TztzJH3cmmUwyc++duePMPfByYDKZuffuXmefs88+95wjY8SIESNGjBgxYnwXyAAn8AtwBfgl68Z0EAb8WUAALgXWA+uABmABMAsYBQpABrgN6AH6gS7gInAncC/QDcwA46SLoUfIDuA54AXgZeAlYDXQCXh97C0HMoAZYAhYCHQCDwNbgK3AFuA+YAnQCmQAOekW0At0AqfIZMBu4FngHeAtYAsw72FPHpAHLgaKgDPAE8AnpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgd6AJeAfYAmzP27O8X+vIdMBu4GXga+ArYBsw62FPNpAFzgOagKPAE8AXpDPgX8C/WDeGEX8D/wN2q6S746F9LAAAAABJRU5ErkJggg==" alt="Logo">
+            <img class="app-icon-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD9klEQVR4nO2bXUhTYRjHf+ec09m0uS9m09S0SdPUNJvS6MKuSuhS0E0XfS90E0S9CyLoIuiioIsi6KKLoIuiLpIu6iK6CLoo6SLoYpum083pZpuz856Lp80583S2OXu2OfuBB87Z2f953v953/f9n/fDCAQCgUAgEAgEAoFAILArIAccAn4CH4Gv7LPRQRqAbisggN8CrAXagXVAH7ALmAtMA/pAAZgBbgN6gH6gG7gA3A08BDQD08As6RHoErIDeB14DngbeBlYDXQDLo99ykAGMAMMASuBbuAjYBvQDewA7gfWAB1ADpCRbgG9QCdwiswC9gEvA++RzoD9wHPAXmAHsC1v7/L+rCPTAfuAV4GvgG+AncCsvL0rgCzwEDAHPAV8RToD9gPPAXuBHcC2vL3L+7OOTAfsA14FfgK+AbYCcys+3u6M8C3iP8it0Y0/A38D9glfA+Wk9XhAAAAAElFTkSuQmCC" alt="ONMUSUBI Logo">
             <select id="main_title_select" class="title-select" onchange="updateTitleUI(); autoSave();">
                 <option value="事 故 報 告 書">事 故 報 告 書</option>
                 <option value="ヒヤリハット報告">ヒヤリハット報告</option>
@@ -180,10 +172,10 @@
 
         <div class="record-gen-section input-only" style="margin-top:15px; border:1px solid var(--orange); padding:10px; background:#fffaf5; border-radius:8px;">
             <div style="display:flex; justify-content:space-between; margin-bottom:5px; align-items:center;">
-                <span style="font-weight:bold; color:var(--orange); font-size:0.9rem;">📝 記録転送用</span>
+                <span style="font-weight:bold; color:var(--orange); font-size:0.9rem;">📝 記録転送用 (5W1H形式)</span>
                 <button class="btn-pick" style="background:#34495e; color:white;" onclick="copyRecord()">コピー</button>
             </div>
-            <textarea id="generated_record" readonly style="min-height:50px; font-size:12px;"></textarea>
+            <textarea id="generated_record" readonly style="min-height:100px; font-size:12px;"></textarea>
             <button class="btn" style="background:var(--orange); width:100%; margin-top:5px; font-size:0.9rem;" onclick="generateRecord()">✨ 自動生成</button>
         </div>
 
@@ -197,9 +189,8 @@
 </div>
 
 <script>
-// ロジック部分は変更なし（レベル0＝ヒヤリハット定義を含む）
 const impactData = {
-    "0": { type: "ヒヤリハット", degree: "実害なし", desc: "誤った行為（不安全な行動・不安全な状態）が発生したが、患者に実施される前に発見されたか、実施されたが影響がなかった。" },
+    "0": { type: "ヒヤリハット", degree: "実害なし", desc: "誤った行為が発生したが、患者に実施される前に発見されたか、実施されたが影響がなかった。" },
     "1": { type: "インシデント", degree: "実害なし", desc: "影響の可能性はあるが実害なし。" },
     "2": { type: "インシデント", degree: "軽度", desc: "処置・治療なし。観察強化。" },
     "3a": { type: "インシデント", degree: "中程度", desc: "簡単な処置や治療を要した。" },
@@ -212,11 +203,18 @@ const labelMap = { category: "区分", situation: "状況", prevent: "予防策"
 
 let masterData = { 
     category: ["転倒", "転落", "薬関連", "嚥下・誤飲", "皮膚損傷", "暴言・暴力", "紛失", "その他"],
-    situation: ["歩行中にバランスを崩し転倒。","食事中にむせ込み。","配薬の取り違え。"], 
+    situation: ["歩行中にバランスを崩し転倒。","食事中にむセ込み。","配薬の取り違え。"], 
     prevent: ["見守りの強化。","環境整備。","周知徹底。"], 
-    m_user: ["疾患", "ADL", "認知機能", "その他"], 
-    m_staff: ["確認不足", "技術不足", "疲労", "焦り"], 
-    m_mac: ["床濡れ", "照明不足", "整理整頓"], 
+    m_user: [
+        "疾患（病気）", "体調の変化", "ADL（日常生活動作）", "身体機能面の問題", "転倒しやすい", "誤嚥しやすい（嚥下機能）", "排便・排尿（尿意・便意など）", "薬の服用状態", "栄養状態", "その他(身体面)",
+        "精神（心の）状況", "認知機能面", "対人関係や悩み", "なにかエピソードがあったか？", "ご利用者の生活リズム（昼夜逆転）", "望むこと、嫌なこと", "その他(生活・精神面)"
+    ], 
+    m_staff: [
+        "視力、聴力", "体調の変化", "睡眠不足", "疲労感", "その他(身体面)",
+        "精神(心の)状況", "対人関係や悩み・ストレス", "急いでいた", "焦っていた", "集中できなかった", "その他(精神面)",
+        "他の利用者対応中だった", "技術不足(介護技術など)", "知識不足", "確認不足", "連絡不足", "慣れ"
+    ], 
+    m_mac: ["危険物の有無", "モノの置き場所、置き方", "機器の配置・機能・適合性", "センサーの不備", "適切な物を使用しているか", "道具の使用方法の不備", "その他【】", "床濡れ", "照明不足", "整理整頓"], 
     m_met: ["手順ミス", "マニュアル不備"], 
     m_mng: ["人員配置", "連携不足"] 
 };
@@ -282,7 +280,7 @@ function renderMasterEditor() {
         container.appendChild(div);
     });
 }
-function saveMaster() { localStorage.setItem('master_v12', JSON.stringify(masterData)); updateSelectors(); updateCategorySelector(); toggleModal('settingsModal', false); }
+function saveMaster() { localStorage.setItem('master_v18', JSON.stringify(masterData)); updateSelectors(); updateCategorySelector(); toggleModal('settingsModal', false); }
 
 function updateCategorySelector() {
     const sel = document.getElementById('category');
@@ -323,11 +321,29 @@ function sync5M() {
 }
 
 function generateRecord() {
-    const name = document.getElementById('user_name').value || "利用者";
-    const sit = document.getElementById('situation').value || "-";
-    const text = `【報告：${name}様】\n状況：${sit}`;
-    document.getElementById('generated_record').value = text;
-    autoResize(document.getElementById('generated_record'));
+    const dateInput = document.getElementById('event_date').value;
+    const when = dateInput ? new Date(dateInput).toLocaleString('ja-JP', {year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'}) : "不明";
+    const where = document.getElementById('location').value || "不明";
+    const who = document.getElementById('user_name').value || "利用者";
+    const reporter = document.getElementById('reporter').value || "担当者";
+    const category = document.getElementById('category').value || "事象";
+    const what = document.getElementById('situation').value || "-";
+    const why = document.getElementById('analysis_text').value || "-";
+    const how = document.getElementById('prevent').value || "-";
+
+    const text = `【${category}報告：5W1Hまとめ】
+・When（いつ）: ${when}
+・Where（どこで）: ${where}
+・Who（だれが）: ${who} 様（報告者: ${reporter}）
+・What（何が起きたか）: ${what.replace(/\n/g, ' ')}
+・Why（なぜ起きたか）: 
+${why}
+・How（どう対応し、防ぐか）: 
+${how}`;
+
+    const targetEl = document.getElementById('generated_record');
+    targetEl.value = text;
+    autoResize(targetEl);
 }
 
 function autoResize(el) { 
@@ -341,12 +357,12 @@ function copyRecord() { navigator.clipboard.writeText(document.getElementById('g
 
 function autoSave() {
     const d = {}; document.querySelectorAll('input, select, textarea').forEach(el => { if(el.id) d[el.id] = el.value; });
-    d.photos = photoList; localStorage.setItem('save_v12', JSON.stringify(d));
+    d.photos = photoList; localStorage.setItem('save_v18', JSON.stringify(d));
 }
 function loadData() {
-    const m = localStorage.getItem('master_v12'); if(m) masterData = JSON.parse(m); 
+    const m = localStorage.getItem('master_v18'); if(m) masterData = JSON.parse(m); 
     updateSelectors(); updateCategorySelector();
-    const s = localStorage.getItem('save_v12');
+    const s = localStorage.getItem('save_v18');
     if(s) {
         const d = JSON.parse(s);
         Object.keys(d).forEach(id => { if(document.getElementById(id)) document.getElementById(id).value = d[id]; });
@@ -356,13 +372,11 @@ function loadData() {
     setTimeout(() => { document.querySelectorAll('textarea').forEach(autoResize); }, 200);
 }
 function downloadJSON() { 
-    const blob = new Blob([localStorage.getItem('save_v12')], {type:'application/json'});
+    const blob = new Blob([localStorage.getItem('save_v18')], {type:'application/json'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `report_${Date.now()}.json`; a.click();
 }
 window.onload = loadData;
-window.onbeforeprint = () => {
-    document.querySelectorAll('textarea').forEach(autoResize);
-};
+window.onbeforeprint = () => { document.querySelectorAll('textarea').forEach(autoResize); };
 </script>
 </body>
 </html>
