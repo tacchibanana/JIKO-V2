@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>報告アプリ_Tacchibanana_v18_A4</title>
-    <link rel="icon" href="https://img.icons8.com/color/96/handshake-heart.png">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/color/96/handshake-heart.png">
+    <title>報告アプリ_Tacchibanana_V1.0_A4</title>
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23E8F5E9'/%3E%3Crect x='130' y='140' width='252' height='300' rx='24' fill='%23FFFFFF' stroke='%23A5D6A7' stroke-width='12'/%3E%3Crect x='190' y='90' width='132' height='60' rx='20' fill='%2381C784'/%3E%3Cline x1='180' y1='210' x2='332' y2='210' stroke='%23C8E6C9' stroke-width='14' stroke-linecap='round'/%3E%3Cline x1='180' y1='260' x2='332' y2='260' stroke='%23C8E6C9' stroke-width='14' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='345' r='36' fill='%23FFB74D'/%3E%3Cpath d='M256 322 L256 352' stroke='%23FFFFFF' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='368' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23E8F5E9'/%3E%3Crect x='130' y='140' width='252' height='300' rx='24' fill='%23FFFFFF' stroke='%23A5D6A7' stroke-width='12'/%3E%3Crect x='190' y='90' width='132' height='60' rx='20' fill='%2381C784'/%3E%3Cline x1='180' y1='210' x2='332' y2='210' stroke='%23C8E6C9' stroke-width='14' stroke-linecap='round'/%3E%3Cline x1='180' y1='260' x2='332' y2='260' stroke='%23C8E6C9' stroke-width='14' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='345' r='36' fill='%23FFB74D'/%3E%3Cpath d='M256 322 L256 352' stroke='%23FFFFFF' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='368' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E">
 
     <style>
         :root { --primary: #2c3e50; --accent: #27ae60; --bg: #f4f7f9; --card: #ffffff; --border: #cbd5e1; --success: #27ae60; --orange: #e67e22; --dark: #1e293b; --danger: #e74c3c; --info: #3498db; }
@@ -13,9 +14,7 @@
         .app-container { max-width: 850px; margin: auto; position: relative; }
         
         .title-selector-container { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px; border-bottom: 3px double var(--primary); padding-bottom: 10px; }
-        /* アプリアイコンのスタイル設定 */
-        .app-icon-img { width: 55px; height: 55px; object-fit: contain; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .title-select { font-size: 1.4rem; font-weight: bold; color: var(--primary); border: none; background: transparent; text-align: left; cursor: pointer; letter-spacing: 0.1em; flex-grow: 1; outline: none; appearance: none; -webkit-appearance: none; }
+        .title-select { font-size: 1.4rem; font-weight: bold; color: var(--primary); border: none; background: transparent; text-align: center; cursor: pointer; letter-spacing: 0.1em; flex-grow: 1; outline: none; appearance: none; -webkit-appearance: none; }
         
         .btn-settings { position: fixed; top: 10px; right: 10px; z-index: 100; background: var(--dark); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto; }
@@ -97,7 +96,6 @@
 <div class="app-container">
     <div class="card">
         <div class="title-selector-container">
-            <img class="app-icon-img" src="https://img.icons8.com/color/96/handshake-heart.png" alt="ONMUSUBI Logo">
             <select id="main_title_select" class="title-select" onchange="updateTitleUI(); autoSave();">
                 <option value="事 故 報 告 書">事 故 報 告 書</option>
                 <option value="ヒヤリハット報告">ヒヤリハット報告</option>
@@ -173,11 +171,11 @@
 
         <div class="record-gen-section input-only" style="margin-top:15px; border:1px solid var(--orange); padding:10px; background:#fffaf5; border-radius:8px;">
             <div style="display:flex; justify-content:space-between; margin-bottom:5px; align-items:center;">
-                <span style="font-weight:bold; color:var(--orange); font-size:0.9rem;">📝 記録転送用 (5W1H形式)</span>
+                <span style="font-weight:bold; color:var(--orange); font-size:0.9rem;">📝 記録転送用 (5W1Hまとめ)</span>
                 <button class="btn-pick" style="background:#34495e; color:white;" onclick="copyRecord()">コピー</button>
             </div>
             <textarea id="generated_record" readonly style="min-height:100px; font-size:12px;"></textarea>
-            <button class="btn" style="background:var(--orange); width:100%; margin-top:5px; font-size:0.9rem;" onclick="generateRecord()">✨ 自動生成</button>
+            <button class="btn" style="background:var(--orange); width:100%; margin-top:5px; font-size:0.9rem;" onclick="generateRecord()">✨ 5W1H形式で自動生成</button>
         </div>
 
         <div class="action-bar input-only">
@@ -186,11 +184,10 @@
         </div>
     </div>
     
-    <footer class="input-only">©️ONMUSUBI 2026</footer>
+    <footer class="input-only">©️ONMUSUBI 2026 - Version 1.0</footer>
 </div>
 
 <script>
-// (スクリプト部分は元のロジックを維持)
 const impactData = {
     "0": { type: "ヒヤリハット", degree: "実害なし", desc: "誤った行為が発生したが、患者に実施される前に発見されたか、実施されたが影響がなかった。" },
     "1": { type: "インシデント", degree: "実害なし", desc: "影響の可能性はあるが実害なし。" },
@@ -282,7 +279,7 @@ function renderMasterEditor() {
         container.appendChild(div);
     });
 }
-function saveMaster() { localStorage.setItem('master_v18', JSON.stringify(masterData)); updateSelectors(); updateCategorySelector(); toggleModal('settingsModal', false); }
+function saveMaster() { localStorage.setItem('master_v1_0', JSON.stringify(masterData)); updateSelectors(); updateCategorySelector(); toggleModal('settingsModal', false); }
 
 function updateCategorySelector() {
     const sel = document.getElementById('category');
@@ -333,14 +330,14 @@ function generateRecord() {
     const why = document.getElementById('analysis_text').value || "-";
     const how = document.getElementById('prevent').value || "-";
 
-    const text = `【${category}報告：5W1Hまとめ】
-・When（いつ）: ${when}
-・Where（どこで）: ${where}
-・Who（だれが）: ${who} 様（報告者: ${reporter}）
-・What（何が起きたか）: ${what.replace(/\n/g, ' ')}
-・Why（なぜ起きたか）: 
+    const text = `【${category}報告：5W1H形式まとめ】
+■When（いつ）: ${when}
+■Where（どこで）: ${where}
+■Who（だれが）: ${who} 様（報告者: ${reporter}）
+■What（何が起きたか）: ${what.replace(/\n/g, ' ')}
+■Why（なぜ起きたか）: 
 ${why}
-・How（どう対応し、防ぐか）: 
+■How（どう対応し、防ぐか）: 
 ${how}`;
 
     const targetEl = document.getElementById('generated_record');
@@ -355,16 +352,16 @@ function autoResize(el) {
 }
 
 function closeSel(id) { document.getElementById(id).blur(); sync5M(); }
-function copyRecord() { navigator.clipboard.writeText(document.getElementById('generated_record').value).then(() => alert("コピーしました")); }
+function copyRecord() { navigator.clipboard.writeText(document.getElementById('generated_record').value).then(() => alert("記録をコピーしました。カルテ等に貼り付けてください。")); }
 
 function autoSave() {
     const d = {}; document.querySelectorAll('input, select, textarea').forEach(el => { if(el.id) d[el.id] = el.value; });
-    d.photos = photoList; localStorage.setItem('save_v18', JSON.stringify(d));
+    d.photos = photoList; localStorage.setItem('save_v1_0', JSON.stringify(d));
 }
 function loadData() {
-    const m = localStorage.getItem('master_v18'); if(m) masterData = JSON.parse(m); 
+    const m = localStorage.getItem('master_v1_0'); if(m) masterData = JSON.parse(m); 
     updateSelectors(); updateCategorySelector();
-    const s = localStorage.getItem('save_v18');
+    const s = localStorage.getItem('save_v1_0');
     if(s) {
         const d = JSON.parse(s);
         Object.keys(d).forEach(id => { if(document.getElementById(id)) document.getElementById(id).value = d[id]; });
@@ -374,8 +371,8 @@ function loadData() {
     setTimeout(() => { document.querySelectorAll('textarea').forEach(autoResize); }, 200);
 }
 function downloadJSON() { 
-    const blob = new Blob([localStorage.getItem('save_v18')], {type:'application/json'});
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `report_${Date.now()}.json`; a.click();
+    const blob = new Blob([localStorage.getItem('save_v1_0')], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `report_v1.0_${Date.now()}.json`; a.click();
 }
 window.onload = loadData;
 window.onbeforeprint = () => { document.querySelectorAll('textarea').forEach(autoResize); };
