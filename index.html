@@ -6,7 +6,6 @@
     <title>報告アプリ_Tacchibanana_V1.0_A4</title>
     
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23E8F5E9'/%3E%3Crect x='130' y='140' width='252' height='300' rx='24' fill='%23FFFFFF' stroke='%23A5D6A7' stroke-width='12'/%3E%3Crect x='190' y='90' width='132' height='60' rx='20' fill='%2381C784'/%3E%3Cline x1='180' y1='210' x2='332' y2='210' stroke='%23C8E6C9' stroke-width='14' stroke-linecap='round'/%3E%3Cline x1='180' y1='260' x2='332' y2='260' stroke='%23C8E6C9' stroke-width='14' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='345' r='36' fill='%23FFB74D'/%3E%3Cpath d='M256 322 L256 352' stroke='%23FFFFFF' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='368' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23E8F5E9'/%3E%3Crect x='130' y='140' width='252' height='300' rx='24' fill='%23FFFFFF' stroke='%23A5D6A7' stroke-width='12'/%3E%3Crect x='190' y='90' width='132' height='60' rx='20' fill='%2381C784'/%3E%3Cline x1='180' y1='210' x2='332' y2='210' stroke='%23C8E6C9' stroke-width='14' stroke-linecap='round'/%3E%3Cline x1='180' y1='260' x2='332' y2='260' stroke='%23C8E6C9' stroke-width='14' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='345' r='36' fill='%23FFB74D'/%3E%3Cpath d='M256 322 L256 352' stroke='%23FFFFFF' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='368' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E">
 
     <style>
         :root { --primary: #2c3e50; --accent: #27ae60; --bg: #f4f7f9; --card: #ffffff; --border: #cbd5e1; --success: #27ae60; --orange: #e67e22; --dark: #1e293b; --danger: #e74c3c; --info: #3498db; }
@@ -51,21 +50,22 @@
         footer { text-align: center; padding: 15px 0; color: #64748b; font-size: 12px; }
 
         @media print {
-            @page { size: A4; margin: 10mm; }
-            body { background: white; padding: 0; font-size: 11pt; }
-            .app-container { max-width: 100%; width: 100%; }
+            @page { size: A4; margin: 12mm; }
+            body { background: white; padding: 0; font-size: 10pt; color: #000; }
+            .app-container { max-width: 100%; width: 100%; margin: 0; }
             .input-only, .btn-settings, .modal, .btn-pick, .btn-close-sel, .record-gen-section, .btn-del-img, .analysis-grid, footer { display: none !important; }
-            .card { box-shadow: none; border: none; padding: 0; }
-            input, select, textarea { border: none; padding: 4px 0; font-size: 11pt; background: transparent !important; appearance: none; -webkit-appearance: none; overflow: hidden; }
-            textarea { height: auto !important; min-height: 1.2em; }
-            .content-box { border: 1px solid #475569; margin-bottom: 10px; page-break-inside: avoid; }
+            .card { box-shadow: none; border: none; padding: 0; width: 100%; }
+            input, select, textarea { border: none; padding: 4px 0; font-size: 10pt; background: transparent !important; appearance: none; width: 100%; box-sizing: border-box; word-break: break-all; }
+            textarea { height: auto !important; min-height: 1.2em; display: block; overflow: hidden; }
+            .content-box { border: 1px solid #475569; margin-bottom: 8px; page-break-inside: avoid; }
             .section-title { background: #f0f0f0 !important; color: #000 !important; border: 1px solid #475569; border-bottom: none; -webkit-print-color-adjust: exact; }
-            .vital-grid { background: white; padding: 4px; border: 1px solid #475569; border-top: none; margin-bottom: 5px; }
-            .input-grid { gap: 10px; margin-bottom: 10px; border: 1px solid #eee; padding: 5px; border-radius: 4px; }
+            .vital-grid { background: white; padding: 4px; border: 1px solid #475569; border-top: none; margin-bottom: 5px; display: grid; grid-template-columns: repeat(5, 1fr); }
+            .input-grid { gap: 10px; margin-bottom: 10px; border: 1px solid #eee; padding: 5px; border-radius: 4px; display: grid; grid-template-columns: repeat(4, 1fr); }
             .title-selector-container { margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-            #photo-list { border: 1px solid #475569; border-top: none; }
+            #photo-list { border: 1px solid #475569; border-top: none; display: flex; flex-wrap: wrap; gap: 5px; }
             #photo-list:empty { display: none; }
-            .photo-item { width: 180px; height: 180px; }
+            .photo-item { width: 100px; height: 100px; border: 1px solid #999; }
+            .photo-item img { object-fit: contain; }
             #impact_desc_box { border: 1px solid #ccc; background: #fff !important; }
         }
     </style>
@@ -198,23 +198,14 @@ const impactData = {
     "4": { type: "アクシデント", degree: "高度", desc: "永続的な障害や後遺症。" },
     "5": { type: "アクシデント", degree: "高度", desc: "死亡。" }
 };
-
 const labelMap = { category: "区分", situation: "状況", prevent: "予防策", m_user: "利用者", m_staff: "職員", m_mac: "環境", m_met: "手順", m_mng: "管理" };
-
 let masterData = { 
     category: ["転倒", "転落", "薬関連", "嚥下・誤飲", "皮膚損傷", "暴言・暴力", "紛失", "その他"],
     situation: ["歩行中にバランスを崩し転倒。","食事中にむセ込み。","配薬の取り違え。"], 
     prevent: ["見守りの強化。","環境整備。","周知徹底。"], 
-    m_user: [
-        "疾患（病気）", "体調の変化", "ADL（日常生活動作）", "身体機能面の問題", "転倒しやすい", "誤嚥しやすい（嚥下機能）", "排便・排尿（尿意・便意など）", "薬の服用状態", "栄養状態", "その他(身体面)",
-        "精神（心の）状況", "認知機能面", "対人関係や悩み", "なにかエピソードがあったか？", "ご利用者の生活リズム（昼夜逆転）", "望むこと、嫌なこと", "その他(生活・精神面)"
-    ], 
-    m_staff: [
-        "視力、聴力", "体調の変化", "睡眠不足", "疲労感", "その他(身体面)",
-        "精神(心の)状況", "対人関係や悩み・ストレス", "急いでいた", "焦っていた", "集中できなかった", "その他(精神面)",
-        "他の利用者対応中だった", "技術不足(介護技術など)", "知識不足", "確認不足", "連絡不足", "慣れ"
-    ], 
-    m_mac: ["危険物の有無", "モノの置き場所、置き方", "機器の配置・機能・適合性", "センサーの不備", "適切な物を使用しているか", "道具の使用方法の不備", "その他【】", "床濡れ", "照明不足", "整理整頓"], 
+    m_user: ["疾患（病気）", "体調の変化", "ADL", "身体機能面", "転倒しやすい", "誤嚥しやすい", "その他"], 
+    m_staff: ["視力・聴力", "体調", "疲労", "確認不足", "慣れ", "焦り"], 
+    m_mac: ["機器不備", "床濡れ", "照明不足", "整理整頓"], 
     m_met: ["手順ミス", "マニュアル不備"], 
     m_mng: ["人員配置", "連携不足"] 
 };
@@ -222,32 +213,20 @@ let photoList = [];
 
 function updateTitleUI() {
     const titleVal = document.getElementById('main_title_select').value;
-    if (titleVal === "ヒヤリハット報告") {
-        document.getElementById('impact_level').value = "0";
-        updateImpactUI();
-    }
+    if (titleVal === "ヒヤリハット報告") { document.getElementById('impact_level').value = "0"; updateImpactUI(); }
 }
-
 function updateImpactUI() {
     const val = document.getElementById('impact_level').value;
     const badge = document.getElementById('impact_type_badge');
     const text = document.getElementById('impact_text');
     if (val && impactData[val]) {
         const d = impactData[val];
-        let color = "var(--success)";
-        if (d.type === "アクシデント") color = "var(--danger)";
-        if (d.type === "ヒヤリハット") color = "var(--info)";
-        
+        let color = d.type === "アクシデント" ? "var(--danger)" : (d.type === "ヒヤリハット" ? "var(--info)" : "var(--success)");
         badge.innerHTML = `<span class="impact-badge" style="background:${color}">${d.type}</span>`;
         text.innerText = d.desc;
-    } else {
-        badge.innerHTML = "";
-        text.innerText = "レベルを選択すると基準が表示されます";
-    }
+    } else { badge.innerHTML = ""; text.innerText = "レベルを選択すると基準が表示されます"; }
 }
-
 function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'block' : 'none'; if(show && id === 'settingsModal') renderMasterEditor(); }
-
 function handlePhotos(event) {
     const files = event.target.files;
     for (let file of files) {
@@ -266,45 +245,38 @@ function renderPhotos() {
     });
 }
 function removePhoto(idx, e) { e.stopPropagation(); photoList.splice(idx, 1); renderPhotos(); autoSave(); }
-
 function renderMasterEditor() {
     const container = document.getElementById('master-editor');
     container.innerHTML = "";
     Object.keys(masterData).forEach(key => {
-        const div = document.createElement('div'); div.style.marginBottom = "10px";
-        div.innerHTML = `<h4 style="margin:5px 0; font-size:12px;">${labelMap[key]}</h4>`;
+        const div = document.createElement('div'); div.innerHTML = `<h4>${labelMap[key]}</h4>`;
         masterData[key].forEach((val, idx) => {
-            div.innerHTML += `<div style="display:flex; margin-bottom:2px;"><input type="text" value="${val}" onchange="masterData['${key}'][${idx}]=this.value" style="font-size:12px;"><button onclick="masterData['${key}'].splice(${idx},1);renderMasterEditor()">×</button></div>`;
+            div.innerHTML += `<div style="display:flex;"><input type="text" value="${val}" onchange="masterData['${key}'][${idx}]=this.value"><button onclick="masterData['${key}'].splice(${idx},1);renderMasterEditor()">×</button></div>`;
         });
-        div.innerHTML += `<button onclick="masterData['${key}'].push('');renderMasterEditor()" style="font-size:11px;">+ 追加</button>`;
+        div.innerHTML += `<button onclick="masterData['${key}'].push('');renderMasterEditor()">+ 追加</button>`;
         container.appendChild(div);
     });
 }
 function saveMaster() { localStorage.setItem('master_v1_0', JSON.stringify(masterData)); updateSelectors(); updateCategorySelector(); toggleModal('settingsModal', false); }
-
 function updateCategorySelector() {
     const sel = document.getElementById('category');
-    if(!sel) return;
     const currentVal = sel.value;
     sel.innerHTML = "";
-    masterData.category.forEach(v => { if(!v) return; const o = document.createElement('option'); o.value = v; o.text = v; if(v === currentVal) o.selected = true; sel.appendChild(o); });
+    masterData.category.forEach(v => { const o = document.createElement('option'); o.value = v; o.text = v; if(v === currentVal) o.selected = true; sel.appendChild(o); });
 }
-
 function updateSelectors() {
     ['m_user', 'm_staff', 'm_mac', 'm_met', 'm_mng'].forEach(id => {
-        const sel = document.getElementById(id); if(!sel) return;
+        const sel = document.getElementById(id);
         const saved = Array.from(sel.selectedOptions).map(o => o.value);
         sel.innerHTML = "";
-        (masterData[id] || []).forEach(v => { if(!v) return; const o = document.createElement('option'); o.value = v; o.text = v; if(saved.includes(v)) o.selected = true; sel.appendChild(o); });
+        (masterData[id] || []).forEach(v => { const o = document.createElement('option'); o.value = v; o.text = v; if(saved.includes(v)) o.selected = true; sel.appendChild(o); });
     });
 }
-
 function openPicker(targetId) {
     const list = document.getElementById('picker-list');
     document.getElementById('picker-title').innerText = `${labelMap[targetId]}を選択`;
     list.innerHTML = "";
     masterData[targetId].forEach(text => {
-        if(!text) return;
         const b = document.createElement('button'); b.className = "btn"; b.style = "background:#f0f4f8; color:#333; font-size:13px; text-align:left; font-weight:normal; border:1px solid #ddd;";
         b.innerText = text;
         b.onclick = () => { const el = document.getElementById(targetId); el.value += (el.value ? "\n" : "") + text; autoResize(el); toggleModal('pickerModal', false); autoSave(); };
@@ -312,54 +284,32 @@ function openPicker(targetId) {
     });
     toggleModal('pickerModal', true);
 }
-
 function sync5M() {
     let res = "";
     const nameLabels = { m_user: "利用者", m_staff: "職員", m_mac: "環境", m_met: "手順", m_mng: "管理" };
     Object.keys(nameLabels).forEach(key => { const vals = Array.from(document.getElementById(key).selectedOptions).map(o => o.value); if(vals.length > 0) res += `【${nameLabels[key]}】${vals.join('、')}\n`; });
     const el = document.getElementById('analysis_text'); el.value = res; autoResize(el); autoSave();
 }
-
 function generateRecord() {
     const dateInput = document.getElementById('event_date').value;
-    const when = dateInput ? new Date(dateInput).toLocaleString('ja-JP', {year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'}) : "不明";
-    const where = document.getElementById('location').value || "不明";
+    const when = dateInput ? new Date(dateInput).toLocaleString('ja-JP') : "不明";
     const who = document.getElementById('user_name').value || "利用者";
     const reporter = document.getElementById('reporter').value || "担当者";
     const category = document.getElementById('category').value || "事象";
     const what = document.getElementById('situation').value || "-";
     const why = document.getElementById('analysis_text').value || "-";
     const how = document.getElementById('prevent').value || "-";
-
-    const text = `【${category}報告：5W1H形式まとめ】
-■When（いつ）: ${when}
-■Where（どこで）: ${where}
-■Who（だれが）: ${who} 様（報告者: ${reporter}）
-■What（何が起きたか）: ${what.replace(/\n/g, ' ')}
-■Why（なぜ起きたか）: 
-${why}
-■How（どう対応し、防ぐか）: 
-${how}`;
-
-    const targetEl = document.getElementById('generated_record');
-    targetEl.value = text;
-    autoResize(targetEl);
+    const text = `【${category}報告：5W1H形式】\n■When: ${when}\n■Who: ${who} (報告者: ${reporter})\n■What: ${what}\n■Why: ${why}\n■How: ${how}`;
+    document.getElementById('generated_record').value = text;
+    autoResize(document.getElementById('generated_record'));
 }
-
-function autoResize(el) { 
-    if(!el) return;
-    el.style.height = 'auto'; 
-    el.style.height = el.scrollHeight + 'px'; 
-}
-
+function autoResize(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
 function closeSel(id) { document.getElementById(id).blur(); sync5M(); }
-function copyRecord() { navigator.clipboard.writeText(document.getElementById('generated_record').value).then(() => alert("記録をコピーしました。カルテ等に貼り付けてください。")); }
-
+function copyRecord() { navigator.clipboard.writeText(document.getElementById('generated_record').value).then(() => alert("コピー完了")); }
 function autoSave() {
     const d = {}; document.querySelectorAll('input, select, textarea').forEach(el => { if(el.id) d[el.id] = el.value; });
     d.photos = photoList; localStorage.setItem('save_v1_0', JSON.stringify(d));
 }
-
 function loadJSON(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -368,13 +318,18 @@ function loadJSON(event) {
         try {
             const data = JSON.parse(e.target.result);
             localStorage.setItem('save_v1_0', JSON.stringify(data));
-            loadData();
+            Object.keys(data).forEach(id => { const el = document.getElementById(id); if (el) { el.value = data[id]; autoResize(el); } });
+            photoList = data.photos || [];
+            renderPhotos();
+            updateSelectors();
+            updateCategorySelector();
+            updateImpactUI();
             alert("データを読み込みました。");
-        } catch (err) { alert("JSONファイルの読み込みに失敗しました。"); }
+            event.target.value = "";
+        } catch (err) { alert("JSONファイルの形式が不正です。"); }
     };
     reader.readAsText(file);
 }
-
 function loadData() {
     const m = localStorage.getItem('master_v1_0'); if(m) masterData = JSON.parse(m); 
     updateSelectors(); updateCategorySelector();
@@ -389,10 +344,9 @@ function loadData() {
 }
 function downloadJSON() { 
     const blob = new Blob([localStorage.getItem('save_v1_0')], {type:'application/json'});
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `report_v1.0_${Date.now()}.json`; a.click();
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `report_${Date.now()}.json`; a.click();
 }
 window.onload = loadData;
-window.onbeforeprint = () => { document.querySelectorAll('textarea').forEach(autoResize); };
 </script>
 </body>
 </html>
