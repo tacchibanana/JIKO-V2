@@ -46,7 +46,7 @@
         .btn-close-sel { width: 100%; padding: 4px; background: #64748b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer; margin-top: 2px; }
         
         .btn { padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; }
-        .action-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .action-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
 
         footer { text-align: center; padding: 15px 0; color: #64748b; font-size: 12px; }
 
@@ -179,6 +179,10 @@
         </div>
 
         <div class="action-bar input-only">
+            <label class="btn" style="background:var(--info); cursor:pointer;">
+                📂 読込
+                <input type="file" accept=".json" style="display:none;" onchange="loadJSONFile(event)">
+            </label>
             <button class="btn" style="background:var(--accent);" onclick="downloadJSON()">📁 保存</button>
             <button class="btn" style="background:var(--success);" onclick="window.print()">🖨️ A4印刷</button>
         </div>
@@ -189,193 +193,4 @@
 
 <script>
 const impactData = {
-    "0": { type: "ヒヤリハット", degree: "実害なし", desc: "誤った行為が発生したが、患者に実施される前に発見されたか、実施されたが影響がなかった。" },
-    "1": { type: "インシデント", degree: "実害なし", desc: "影響の可能性はあるが実害なし。" },
-    "2": { type: "インシデント", degree: "軽度", desc: "処置・治療なし。観察強化。" },
-    "3a": { type: "インシデント", degree: "中程度", desc: "簡単な処置や治療を要した。" },
-    "3b": { type: "アクシデント", degree: "高度", desc: "濃厚な処置や治療を要した。" },
-    "4": { type: "アクシデント", degree: "高度", desc: "永続的な障害や後遺症。" },
-    "5": { type: "アクシデント", degree: "高度", desc: "死亡。" }
-};
-
-const labelMap = { category: "区分", situation: "状況", prevent: "予防策", m_user: "利用者", m_staff: "職員", m_mac: "環境", m_met: "手順", m_mng: "管理" };
-
-let masterData = { 
-    category: ["転倒", "転落", "薬関連", "嚥下・誤飲", "皮膚損傷", "暴言・暴力", "紛失", "その他"],
-    situation: ["歩行中にバランスを崩し転倒。","食事中にむセ込み。","配薬の取り違え。"], 
-    prevent: ["見守りの強化。","環境整備。","周知徹底。"], 
-    m_user: [
-        "疾患（病気）", "体調の変化", "ADL（日常生活動作）", "身体機能面の問題", "転倒しやすい", "誤嚥しやすい（嚥下機能）", "排便・排尿（尿意・便意など）", "薬の服用状態", "栄養状態", "その他(身体面)",
-        "精神（心の）状況", "認知機能面", "対人関係や悩み", "なにかエピソードがあったか？", "ご利用者の生活リズム（昼夜逆転）", "望むこと、嫌なこと", "その他(生活・精神面)"
-    ], 
-    m_staff: [
-        "視力、聴力", "体調の変化", "睡眠不足", "疲労感", "その他(身体面)",
-        "精神(心の)状況", "対人関係や悩み・ストレス", "急いでいた", "焦っていた", "集中できなかった", "その他(精神面)",
-        "他の利用者対応中だった", "技術不足(介護技術など)", "知識不足", "確認不足", "連絡不足", "慣れ"
-    ], 
-    m_mac: ["危険物の有無", "モノの置き場所、置き方", "機器の配置・機能・適合性", "センサーの不備", "適切な物を使用しているか", "道具の使用方法の不備", "その他【】", "床濡れ", "照明不足", "整理整頓"], 
-    m_met: ["手順ミス", "マニュアル不備"], 
-    m_mng: ["人員配置", "連携不足"] 
-};
-let photoList = [];
-
-function updateTitleUI() {
-    const titleVal = document.getElementById('main_title_select').value;
-    if (titleVal === "ヒヤリハット報告") {
-        document.getElementById('impact_level').value = "0";
-        updateImpactUI();
-    }
-}
-
-function updateImpactUI() {
-    const val = document.getElementById('impact_level').value;
-    const badge = document.getElementById('impact_type_badge');
-    const text = document.getElementById('impact_text');
-    if (val && impactData[val]) {
-        const d = impactData[val];
-        let color = "var(--success)";
-        if (d.type === "アクシデント") color = "var(--danger)";
-        if (d.type === "ヒヤリハット") color = "var(--info)";
-        
-        badge.innerHTML = `<span class="impact-badge" style="background:${color}">${d.type}</span>`;
-        text.innerText = d.desc;
-    } else {
-        badge.innerHTML = "";
-        text.innerText = "レベルを選択すると基準が表示されます";
-    }
-}
-
-function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'block' : 'none'; if(show && id === 'settingsModal') renderMasterEditor(); }
-
-function handlePhotos(event) {
-    const files = event.target.files;
-    for (let file of files) {
-        const reader = new FileReader();
-        reader.onload = (e) => { photoList.push(e.target.result); renderPhotos(); autoSave(); };
-        reader.readAsDataURL(file);
-    }
-}
-function renderPhotos() {
-    const container = document.getElementById('photo-list');
-    container.innerHTML = "";
-    photoList.forEach((src, idx) => {
-        const div = document.createElement('div'); div.className = 'photo-item';
-        div.innerHTML = `<img src="${src}"><button class="btn-del-img input-only" onclick="removePhoto(${idx}, event)">×</button>`;
-        container.appendChild(div);
-    });
-}
-function removePhoto(idx, e) { e.stopPropagation(); photoList.splice(idx, 1); renderPhotos(); autoSave(); }
-
-function renderMasterEditor() {
-    const container = document.getElementById('master-editor');
-    container.innerHTML = "";
-    Object.keys(masterData).forEach(key => {
-        const div = document.createElement('div'); div.style.marginBottom = "10px";
-        div.innerHTML = `<h4 style="margin:5px 0; font-size:12px;">${labelMap[key]}</h4>`;
-        masterData[key].forEach((val, idx) => {
-            div.innerHTML += `<div style="display:flex; margin-bottom:2px;"><input type="text" value="${val}" onchange="masterData['${key}'][${idx}]=this.value" style="font-size:12px;"><button onclick="masterData['${key}'].splice(${idx},1);renderMasterEditor()">×</button></div>`;
-        });
-        div.innerHTML += `<button onclick="masterData['${key}'].push('');renderMasterEditor()" style="font-size:11px;">+ 追加</button>`;
-        container.appendChild(div);
-    });
-}
-function saveMaster() { localStorage.setItem('master_v1_0', JSON.stringify(masterData)); updateSelectors(); updateCategorySelector(); toggleModal('settingsModal', false); }
-
-function updateCategorySelector() {
-    const sel = document.getElementById('category');
-    if(!sel) return;
-    const currentVal = sel.value;
-    sel.innerHTML = "";
-    masterData.category.forEach(v => { if(!v) return; const o = document.createElement('option'); o.value = v; o.text = v; if(v === currentVal) o.selected = true; sel.appendChild(o); });
-}
-
-function updateSelectors() {
-    ['m_user', 'm_staff', 'm_mac', 'm_met', 'm_mng'].forEach(id => {
-        const sel = document.getElementById(id); if(!sel) return;
-        const saved = Array.from(sel.selectedOptions).map(o => o.value);
-        sel.innerHTML = "";
-        (masterData[id] || []).forEach(v => { if(!v) return; const o = document.createElement('option'); o.value = v; o.text = v; if(saved.includes(v)) o.selected = true; sel.appendChild(o); });
-    });
-}
-
-function openPicker(targetId) {
-    const list = document.getElementById('picker-list');
-    document.getElementById('picker-title').innerText = `${labelMap[targetId]}を選択`;
-    list.innerHTML = "";
-    masterData[targetId].forEach(text => {
-        if(!text) return;
-        const b = document.createElement('button'); b.className = "btn"; b.style = "background:#f0f4f8; color:#333; font-size:13px; text-align:left; font-weight:normal; border:1px solid #ddd;";
-        b.innerText = text;
-        b.onclick = () => { const el = document.getElementById(targetId); el.value += (el.value ? "\n" : "") + text; autoResize(el); toggleModal('pickerModal', false); autoSave(); };
-        list.appendChild(b);
-    });
-    toggleModal('pickerModal', true);
-}
-
-function sync5M() {
-    let res = "";
-    const nameLabels = { m_user: "利用者", m_staff: "職員", m_mac: "環境", m_met: "手順", m_mng: "管理" };
-    Object.keys(nameLabels).forEach(key => { const vals = Array.from(document.getElementById(key).selectedOptions).map(o => o.value); if(vals.length > 0) res += `【${nameLabels[key]}】${vals.join('、')}\n`; });
-    const el = document.getElementById('analysis_text'); el.value = res; autoResize(el); autoSave();
-}
-
-function generateRecord() {
-    const dateInput = document.getElementById('event_date').value;
-    const when = dateInput ? new Date(dateInput).toLocaleString('ja-JP', {year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'}) : "不明";
-    const where = document.getElementById('location').value || "不明";
-    const who = document.getElementById('user_name').value || "利用者";
-    const reporter = document.getElementById('reporter').value || "担当者";
-    const category = document.getElementById('category').value || "事象";
-    const what = document.getElementById('situation').value || "-";
-    const why = document.getElementById('analysis_text').value || "-";
-    const how = document.getElementById('prevent').value || "-";
-
-    const text = `【${category}報告：5W1H形式まとめ】
-■When（いつ）: ${when}
-■Where（どこで）: ${where}
-■Who（だれが）: ${who} 様（報告者: ${reporter}）
-■What（何が起きたか）: ${what.replace(/\n/g, ' ')}
-■Why（なぜ起きたか）: 
-${why}
-■How（どう対応し、防ぐか）: 
-${how}`;
-
-    const targetEl = document.getElementById('generated_record');
-    targetEl.value = text;
-    autoResize(targetEl);
-}
-
-function autoResize(el) { 
-    if(!el) return;
-    el.style.height = 'auto'; 
-    el.style.height = el.scrollHeight + 'px'; 
-}
-
-function closeSel(id) { document.getElementById(id).blur(); sync5M(); }
-function copyRecord() { navigator.clipboard.writeText(document.getElementById('generated_record').value).then(() => alert("記録をコピーしました。カルテ等に貼り付けてください。")); }
-
-function autoSave() {
-    const d = {}; document.querySelectorAll('input, select, textarea').forEach(el => { if(el.id) d[el.id] = el.value; });
-    d.photos = photoList; localStorage.setItem('save_v1_0', JSON.stringify(d));
-}
-function loadData() {
-    const m = localStorage.getItem('master_v1_0'); if(m) masterData = JSON.parse(m); 
-    updateSelectors(); updateCategorySelector();
-    const s = localStorage.getItem('save_v1_0');
-    if(s) {
-        const d = JSON.parse(s);
-        Object.keys(d).forEach(id => { if(document.getElementById(id)) document.getElementById(id).value = d[id]; });
-        if(d.photos) { photoList = d.photos; renderPhotos(); }
-    }
-    updateImpactUI();
-    setTimeout(() => { document.querySelectorAll('textarea').forEach(autoResize); }, 200);
-}
-function downloadJSON() { 
-    const blob = new Blob([localStorage.getItem('save_v1_0')], {type:'application/json'});
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `report_v1.0_${Date.now()}.json`; a.click();
-}
-window.onload = loadData;
-window.onbeforeprint = () => { document.querySelectorAll('textarea').forEach(autoResize); };
-</script>
-</body>
-</html>
+    "0": { type:
